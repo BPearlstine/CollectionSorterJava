@@ -1,3 +1,5 @@
+// using the UniVocity csvParser to help with reading and
+// searching of CSVs
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
