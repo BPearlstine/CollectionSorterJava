@@ -11,25 +11,7 @@ public class Comic extends ItemBase
         this.variant = variant;
     }
 
-    public int getIssue()
-    {
-        return issue;
-    }
 
-    public void setIssue(int issue)
-    {
-        this.issue = issue;
-    }
-
-    public boolean isVariant()
-    {
-        return variant;
-    }
-
-    public void setVariant(boolean variant)
-    {
-        this.variant = variant;
-    }
 
     @Override
     public String toString()

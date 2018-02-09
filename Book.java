@@ -10,15 +10,6 @@ public class Book extends ItemBase
         this.edition = edition;
     }
 
-    public boolean getEdition()
-    {
-        return edition;
-    }
-
-    public void setEdition(boolean edition)
-    {
-        this.edition = edition;
-    }
 
     @Override
     public String toString()

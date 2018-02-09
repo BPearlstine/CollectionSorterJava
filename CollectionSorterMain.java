@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class CollectionSorterMain
 {
 
+    //initialize scanner and add paths to csv files
     public static Scanner scanner = new Scanner(System.in);
     static final String BOOKFILE = "./src/Books.csv";
     static final String COMICFILE = "./src/comics.csv";
@@ -42,6 +43,9 @@ public class CollectionSorterMain
                     break;
                 case(6):
                     keepRunning = "no";
+                    break;
+                default:
+                    System.out.println("invalid input");
             }
 
         }
@@ -61,6 +65,7 @@ public class CollectionSorterMain
 
         FileWriter file = new FileWriter(BOOKFILE, true);
 
+        //get input for creating book object
         System.out.print("Enter the title of the book:");
         String title = scanner.nextLine();
         System.out.print("Enter the author of the book:");
@@ -74,6 +79,8 @@ public class CollectionSorterMain
         if (editionCheck.equalsIgnoreCase("y")){
             edition = true;
         }
+
+        //create book object and use toString to write to csv
         Book newBook = new Book(title,author,date,edition);
         file.write(newBook.toString()+'\n');
         file.close();
@@ -84,6 +91,7 @@ public class CollectionSorterMain
 
         FileWriter file = new FileWriter(COMICFILE, true);
 
+        //get input for creating comic object
         System.out.print("Enter the title of the comic:");
         String title = scanner.nextLine();
         System.out.print("Enter the author of the comic:");
@@ -100,6 +108,8 @@ public class CollectionSorterMain
         if (variantCheck.equalsIgnoreCase("y")){
             variant = true;
         }
+
+        //create comic object and use toString to write to csv
         Comic newComic = new Comic(title,author,date,issue,variant);
         file.write(newComic.toString()+'\n');
         file.close();
@@ -108,6 +118,7 @@ public class CollectionSorterMain
     public static void addCard() throws IOException{
         FileWriter file = new FileWriter(CARDFILE, true);
 
+        //get input for create magic card object
         System.out.print("Enter the name of the card:");
         String name = scanner.nextLine();
         System.out.print("Enter the Artist of the card:");
@@ -125,19 +136,27 @@ public class CollectionSorterMain
         }
         System.out.print("Which set is the card from?");
         String set = scanner.nextLine();
+
+        //create card object and use toString to write to csv
         Card newCard = new Card(name,artist,date,condition,foil,set);
         file.write(newCard.toString()+'\n');
         file.close();
     }
 
     public static void search() throws FileNotFoundException{
+        //set csvParser settings for \n linebreaks
+        //initialize csvParser object
         CsvParserSettings settings = new CsvParserSettings();
         settings.getFormat().setLineSeparator("\n");
         CsvParser searchFile = new CsvParser(settings);
+
+        //get input for what is being searched for
         System.out.println("Are you searching your books, comics, or cards?");
         String searchType = scanner.nextLine();
         System.out.println("What are you searching for?");
         String searchItem = scanner.nextLine();
+
+        //begin parsing the appropriate file
         if (searchType.equalsIgnoreCase("books")){
             searchFile.beginParsing(new FileReader(BOOKFILE));
         }else if(searchType.equalsIgnoreCase("comics")){
@@ -145,6 +164,9 @@ public class CollectionSorterMain
         }else{
             searchFile.beginParsing(new FileReader(CARDFILE));
         }
+
+        //turn each row into an array, search array for searchItem
+        //return row if searchItem found
         String[] row;
         boolean found = false;
         while((row = searchFile.parseNext()) != null){
